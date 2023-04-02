@@ -21,10 +21,6 @@ function ColorWithPoucentageOfSuccess(PoucentageOfSuccess){
 if(AverageActive){
     let AllAverageElement = document.getElementsByClassName("bulletin-note-eleve")
 
-    var AllClassAverageElement = document.getElementsByClassName("yui-dt0-col-moyenneClasse yui-dt-col-moyenneClasse")
-    AllClassAverageElement = Array.from(AllClassAverageElement)
-    AllClassAverageElement.shift()
-
     var AllNumberNoteElement = document.getElementsByClassName("yui-dt0-col-nombreDevoirComptabilises yui-dt-col-nombreDevoirComptabilises yui-dt-sortable")
     AllNumberNoteElement = Array.from(AllNumberNoteElement)
     AllNumberNoteElement.shift()
@@ -43,16 +39,6 @@ if(AverageActive){
         }
     }
 
-    indexRemove = 0
-    for(let i = 0; i < AllClassAverageElement.length; i++){
-        if (AllClassAverageElement[i].innerText.search(",") !== -1) {
-            AllClassAverage[i-indexRemove] = parseFloat(AllClassAverageElement[i].firstChild.innerText.replaceAll(",", "."))
-        }
-        else{
-            indexRemove += 1
-        }
-    }
-
     for(let i = 0; i < AllNumberNoteElement.length; i++){
         AllNumberNote[i] = parseInt(AllNumberNoteElement[i].firstChild.firstChild.innerText)
     }
@@ -61,11 +47,9 @@ if(AverageActive){
 
     var MainAverage = AllAverage.reduce((partialSum, a) => partialSum + a, 0) / AllAverage.length
 
-    var MainClassAverage = AllClassAverage.reduce((partialSum, a) => partialSum + a, 0) / AllClassAverage.length
-
     var NumberNote = AllNumberNote.reduce((partialSum, a) => partialSum + a, 0)
 
-    NewRow = '<tr id="yui-recx" class=" yui-dt-even" style="height: 48.38px;"><td headers="yui-dt0-th-matiere " class="yui-dt0-col-matiere yui-dt-col-matiere yui-dt-sortable yui-dt-first" style="width: 150px;"><div class="yui-dt-liner"><div class="bulletin-matiere-ligne"><div class="bulletin-matiere-libelle ellipse fw-700" title="MOYENNE">MOYENNE</div></div></div></td><td headers="yui-dt0-th-yui-dt-col1 yui-dt0-th-moyenneEleve " class="yui-dt0-col-moyenneEleve yui-dt-col-moyenneEleve yui-dt-sortable" style="width: 30px;"><div class="yui-dt-liner bulletin-note bulletin-note-eleve">' + MainAverage.toFixed(2).replaceAll(".", ",") + '</div></td><td headers="yui-dt0-th-yui-dt-col1 yui-dt0-th-nombreDevoirComptabilises " class="yui-dt0-col-nombreDevoirComptabilises yui-dt-col-nombreDevoirComptabilises yui-dt-sortable" style="width: 30px;"><div class="yui-dt-liner bulletin-note"><div class="txt-center">' + NumberNote + '</div></div></td><td headers="yui-dt0-th-yui-dt-col4 yui-dt0-th-moyenneClasse " class="yui-dt0-col-moyenneClasse yui-dt-col-moyenneClasse" style="width: 30px;"><div class="yui-dt-liner bulletin-note">' + MainClassAverage.toFixed(2).replaceAll(".", ",") + '</div></td><td headers="yui-dt0-th-yui-dt-col4 yui-dt0-th-moyenneClasseMin " class="yui-dt0-col-moyenneClasseMin yui-dt-col-moyenneClasseMin" style="width: 30px;"><div class="yui-dt-liner bulletin-note"></div></td><td headers="yui-dt0-th-yui-dt-col4 yui-dt0-th-moyenneClasseMax " class="yui-dt0-col-moyenneClasseMax yui-dt-col-moyenneClasseMax" style="width: 30px;"><div class="yui-dt-liner bulletin-note"></div></td><td headers="yui-dt0-th-notesEleve " class="yui-dt0-col-notesEleve yui-dt-col-notesEleve yui-dt-last"><div class="yui-dt-liner"><div class="list-devoirs-eleve"></div></div></td></tr>'
+    NewRow = '<tr id="yui-recx" class=" yui-dt-even" style="height: 48.38px;"><td headers="yui-dt0-th-matiere " class="yui-dt0-col-matiere yui-dt-col-matiere yui-dt-sortable yui-dt-first" style="width: 150px;"><div class="yui-dt-liner"><div class="bulletin-matiere-ligne"><div class="bulletin-matiere-libelle ellipse fw-700" title="MOYENNE">MOYENNE</div></div></div></td><td headers="yui-dt0-th-yui-dt-col1 yui-dt0-th-moyenneEleve " class="yui-dt0-col-moyenneEleve yui-dt-col-moyenneEleve yui-dt-sortable" style="width: 30px;"><div class="yui-dt-liner bulletin-note bulletin-note-eleve">' + MainAverage.toFixed(2).replaceAll(".", ",") + '</div></td><td headers="yui-dt0-th-yui-dt-col1 yui-dt0-th-nombreDevoirComptabilises " class="yui-dt0-col-nombreDevoirComptabilises yui-dt-col-nombreDevoirComptabilises yui-dt-sortable" style="width: 30px;"><div class="yui-dt-liner bulletin-note"><div class="txt-center">' + NumberNote + '</div></div></td><td headers="yui-dt0-th-yui-dt-col4 yui-dt0-th-moyenneClasse " class="yui-dt0-col-moyenneClasse yui-dt-col-moyenneClasse" style="width: 30px;"><div class="yui-dt-liner bulletin-note"></div></td><td headers="yui-dt0-th-yui-dt-col4 yui-dt0-th-moyenneClasseMin " class="yui-dt0-col-moyenneClasseMin yui-dt-col-moyenneClasseMin" style="width: 30px;"><div class="yui-dt-liner bulletin-note"></div></td><td headers="yui-dt0-th-yui-dt-col4 yui-dt0-th-moyenneClasseMax " class="yui-dt0-col-moyenneClasseMax yui-dt-col-moyenneClasseMax" style="width: 30px;"><div class="yui-dt-liner bulletin-note"></div></td><td headers="yui-dt0-th-notesEleve " class="yui-dt0-col-notesEleve yui-dt-col-notesEleve yui-dt-last"><div class="yui-dt-liner"><div class="list-devoirs-eleve"></div></div></td></tr>'
 
     AllTable = document.querySelector(".yui-dt-data")
 
